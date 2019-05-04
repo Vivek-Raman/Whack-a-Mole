@@ -6,8 +6,7 @@ using UnityEngine.UI;
 public class Score : MonoBehaviour
 {
     [Header("Debug")]
-    [SerializeField] private Text scoreTextReference;
-    [SerializeField] private GameManager gameManager;
+    [SerializeField] private Text scoreTextReference = null;
     [SerializeField] private float counter = 0f;
     
     public void AddScore(float scoreToAdd = 1f)

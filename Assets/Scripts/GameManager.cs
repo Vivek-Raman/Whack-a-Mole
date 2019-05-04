@@ -8,12 +8,13 @@ public class GameManager : MonoBehaviour
     public float TimeBetweenSpawns = 3f;
 
     [Header("Debug")]
-    [SerializeField] private List<Image> MoleImageComponents = new List<Image>();
-    [SerializeField] private Score ScoreReference;
+    public List<Image> Cells = new List<Image>();
+    [SerializeField] private Score ScoreReference = null;
+    [SerializeField] private SpriteManager spriteManager = null;
 
-    bool isMoleSmashed = false;
-    int selectedIndex = 0;
-
+    private bool isMoleSmashed = false;
+    private int selectedIndex = 0;
+    
     void Start()
     {
         // spawn moles
@@ -34,18 +35,22 @@ public class GameManager : MonoBehaviour
     {
         isMoleSmashed = false;
         selectedIndex = Random.Range(1, 9);
-        MoleImageComponents[selectedIndex].enabled = true;
+        Cells[selectedIndex].enabled = true;
     }
 
     // DO NOT RENAME THIS, you'll have to re-map the buttons through inspector
     public void Hole(int holeIndex)
     {
-        MoleImageComponents[selectedIndex].enabled = false;
+        Cells[selectedIndex].enabled = false;
         if (holeIndex == selectedIndex + 1)
         {
             if (!isMoleSmashed)
             {
                 ScoreReference.AddScore(1f);
+            }
+            else
+            {
+                ScoreReference.AddScore(-1f);
             }
             isMoleSmashed = true;
         }
